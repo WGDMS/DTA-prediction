@@ -1,6 +1,6 @@
 # DTA-prediction
 Drug Target Affinity Prediction
 
-Feature generation
+**Feature generation**
 
-You can download generated protein features directly from this link:
+You can download the generated protein features (msa files/contact map etc.) directly from this link:
