@@ -7,6 +7,10 @@ You can download the generated protein features (msa files/contact map etc.) dir
 
 **Train the model**
 
-python training.py X 
+python training.py x 
 
-X- database selection [0- Davis, 1- KIBA]
+**Test the model**
+
+python testing.py x
+
+x - database selection [0- Davis, 1- KIBA]
