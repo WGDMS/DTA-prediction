@@ -1,15 +1,15 @@
 # DTA-prediction
 Drug Target Affinity Prediction
 
-**Feature generation**
+**Dependencies**
+
+**Data preprocessing**
 
 You can download the generated protein features (msa files/contact map etc.) directly from this link:
 
-**Train the model**
+**Train and test the model**
 
 python training.py x 
-
-**Test the model**
 
 python testing.py x
 
