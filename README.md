@@ -5,7 +5,7 @@ Drug Target Affinity Prediction
 
 All preprocessed data are available in the 'data' folder for the Davis and KIBA datasets.
 
-Split datasets for all four strategies (S1–S4) are provided in the 'data/{dataset}/split_data' folder:
+Split datasets for all four strategies (S1 - Standard split, S2 - Cold-drug split, S3 - Cold-target split, S4 - Cold-drug-target split) are provided in the 'data/{dataset}/split_data' folder:
 
 Training: train_SX.csv/
 Validation: val_SX.csv/
@@ -28,8 +28,8 @@ python training.py x y z
 
 python testing.py x z
 
-x - database selection [0- Davis, 1- KIBA]
+x - dataset selection [0- Davis, 1- KIBA]
 
-y - no of epochs
+y - number of training epochs (use the values reported in the paper)
 
-z - split strategy (S1, S2, S3, S4)
+z - data  split strategy (S1, S2, S3, S4)
