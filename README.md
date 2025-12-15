@@ -1,5 +1,5 @@
-# DTA-prediction
-Drug Target Affinity Prediction
+# HFGNN-DTA (Hierarchical Functional-Group GNN for Drug Target Affinity Prediction)
+Integrating Functional-Group Context into Graph Neural Networks for Drug-Target Affinity Prediction
 
 **Data Organization**
 
