@@ -18,6 +18,9 @@ This structure ensures easy access to all datasets for reproducing experiments a
 
 First, generate PSSM features and contact map files of proteins using run_pssm.py and run_pconsc4.py files for each dataset.
 
+python run_pssm.py
+
+python run_pconsc4.py
 
 **Train and test the model**
 
