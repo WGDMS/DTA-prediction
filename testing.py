@@ -86,7 +86,7 @@ def predicting(model, device, loader):
 
 dataset = ['davis', 'kiba'][int(sys.argv[1])]
 #gnn_type = ["GIN", "GAT", "GCN", "GAT_GCN"][int(sys.argv[2])]
-
+split = sys.argv[2]  # This will take 'S1', 'S2', 'S3', or 'S4'
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 TEST_BATCH_SIZE = 512
@@ -94,7 +94,7 @@ models_dir = 'models'
 plots_dir = 'plots'
 os.makedirs(plots_dir, exist_ok=True)
 
-test_data = create_dataset_for_test(dataset)
+test_data = create_dataset_for_test(dataset, split)
 test_loader = torch.utils.data.DataLoader(test_data, batch_size=TEST_BATCH_SIZE, shuffle=False, collate_fn=collate)
 
 all_metrics = []

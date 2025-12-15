@@ -393,7 +393,7 @@ def valid_target(key, dataset):
     #        f.write(','.join(map(str, data)) + '\n')
             
            
-def create_dataset_for_test(dataset):
+def create_dataset_for_test(dataset, split):
     
     dataset_path = f'data/{dataset}/'
     
@@ -455,7 +455,7 @@ def create_dataset_for_test(dataset):
     #if len(smile_graph) == 0 or len(target_graph) == 0:
      #   raise Exception('no protein or drug, run the script for datasets preparation.')
 
-    df_test = pd.read_csv(dataset_path + 'split_data/test_S1.csv')
+    df_test = pd.read_csv(dataset_path + f"split_data/test_{split}.csv")
     df_test.columns = df_test.columns.str.strip()
     print('Test entries:', len(df_test))
 
@@ -480,7 +480,7 @@ def create_dataset_for_test(dataset):
    
                                
 
-def create_dataset(dataset):
+def create_dataset(dataset, split):
   
     dataset_path = f'data/{dataset}/'
     
@@ -543,8 +543,8 @@ def create_dataset(dataset):
     #if len(smile_graph) == 0 or len(target_graph) == 0:
      #   raise Exception('no protein or drug, run the script for datasets preparation.')
 
-
-    df_train = pd.read_csv(dataset_path + 'split_data/train_S1.csv')
+  
+    df_train = pd.read_csv(dataset_path + f"split_data/train_{split}.csv")
     df_train.columns = df_train.columns.str.strip()
     print('Train entries:', len(df_train))
 
@@ -557,7 +557,7 @@ def create_dataset(dataset):
                                y= affinity, mol_graph=mol_graph, target_graph=target_graph)
 
          
-    df_val = pd.read_csv(dataset_path + 'split_data/val_S1.csv')
+    df_val = pd.read_csv(dataset_path + f"split_data/val_{split}.csv")
     df_val.columns = df_val.columns.str.strip()
     print('Validation entries:', len(df_val))
 

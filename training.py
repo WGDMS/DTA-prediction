@@ -17,7 +17,13 @@ TRAIN_BATCH_SIZE = 512
 TEST_BATCH_SIZE = 512
 LR = 0.001
 NUM_EPOCHS = int(sys.argv[2])
+split = sys.argv[3]  # This will take 'S1', 'S2', 'S3', or 'S4'
 PATIENCE = 500  # Early stopping patience
+
+
+print(f"Dataset: {dataset}")
+print(f"Number of epochs: {num_epochs}")
+print(f"Split strategy: {split}")
 
 #gnn_type = ["GIN", "GAT", "GCN", "GAT_GCN"][int(sys.argv[3])]
 #print(f"Using GNN type: {gnn_type}")
@@ -34,7 +40,7 @@ print("Using device:", device)
 print(f"Training with dataset {dataset}")
 
 torch.cuda.empty_cache()
-train_data, valid_data = create_dataset(dataset)
+train_data, valid_data = create_dataset(dataset, split)
 
 for seed in range(5):
     print(f"Running training for seed {seed}...")
