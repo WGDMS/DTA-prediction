@@ -1,0 +1,27 @@
+name: environment
+channels:
+  - pytorch
+  - pyg
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - numpy=2.2.6
+  - pandas=2.2.3
+  - scipy=1.15.3
+  - scikit-learn=1.6.1
+  - matplotlib
+  - networkx
+  - biopython
+  - rdkit=2024.09.4
+
+  - pytorch=2.6.0
+  - torchvision=0.21.0
+  - torchaudio=2.6.0
+  - pytorch-cuda=12.6
+
+  - pip:
+      - torch-geometric==2.6.1
+      - torch-scatter==2.1.2
+      - tqdm
