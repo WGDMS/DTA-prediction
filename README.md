@@ -23,7 +23,7 @@ First, generate PSSM features and contact map files of proteins using run_pssm.p
 
 python training.py x y z
 
-python testing.py x y z
+python testing.py x z
 
 x - database selection [0- Davis, 1- KIBA]
 
