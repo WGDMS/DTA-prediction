@@ -25,7 +25,7 @@ Create and activate the Conda environment required for PconsC4:
 
 `conda activate pconsc4_env`
 
-(The pconsc4_env.yml file specifies all dependencies required for Pconsc4-based contact map generation)
+(The pconsc4_env.yml file specifies all dependencies required for PconsC4-based contact map generation)
 
 `python run_pssm.py`
 
