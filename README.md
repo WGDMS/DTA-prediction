@@ -33,10 +33,8 @@ python run_pconsc4.py
  
 **Train and test the model**
 
-### Python code
-```markdown
-```python
-import torch
+
+`import torch`
 
 
 python training.py x y z
