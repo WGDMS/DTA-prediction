@@ -14,4 +14,5 @@ python training.py x y
 python testing.py x y
 
 x - database selection [0- Davis, 1- KIBA]
+
 y- no of epochs
