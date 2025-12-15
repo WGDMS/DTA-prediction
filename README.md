@@ -7,9 +7,9 @@ All preprocessed data are available in the 'data' folder for the Davis and KIBA 
 
 Split datasets for all four strategies (S1–S4) are provided in the 'data/{dataset}/split_data' folder:
 
-Training: train_SX
-Validation: val_SX
-Test: test_SX
+Training: train_SX.csv/
+Validation: val_SX.csv/
+Test: test_SX.csv
 (Replace X with 1, 2, 3, or 4 to indicate the split strategy.)
 
 This structure ensures easy access to all datasets for reproducing experiments across standard and cold-start scenarios.
