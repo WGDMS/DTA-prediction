@@ -9,8 +9,9 @@ You can download the generated protein features (msa files/contact map etc.) dir
 
 **Train and test the model**
 
-python training.py x 
+python training.py x y
 
-python testing.py x
+python testing.py x y
 
 x - database selection [0- Davis, 1- KIBA]
+y- no of epochs
