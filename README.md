@@ -18,10 +18,19 @@ This structure ensures easy access to all datasets for reproducing experiments a
 
 First, generate PSSM features and contact map files of proteins using run_pssm.py and run_pconsc4.py files for each dataset.
 
+*Create and activate the pconsc4 environment*
+
+Create and activate the Conda environment required for Pconsc4:
+
+conda env create -f pconsc4_env.yml
+conda activate pconsc4_env
+
+(The pconsc4_env.yml file specifies all dependencies required for Pconsc4-based contact map generation)
+
 python run_pssm.py
 
 python run_pconsc4.py
-
+ 
 **Train and test the model**
 
 python training.py x y z
