@@ -1,11 +1,10 @@
 # DTA-prediction
 Drug Target Affinity Prediction
 
-**Dependencies**
-
 **Data preprocessing**
 
-You can download the generated protein features (msa files/contact map etc.) directly from this link:
+First, generate PSSM features and contact map files of proteins using run_pssm.py and run_pconsc4.py files for each dataset.
+
 
 **Train and test the model**
 
