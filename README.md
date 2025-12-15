@@ -20,11 +20,11 @@ First, generate PSSM features and contact map files of proteins using run_pssm.p
 
 *Create and activate the pconsc4 environment*
 
-Create and activate the Conda environment required for Pconsc4:
+Create and activate the Conda environment required for PconsC4:
 
-`conda env create -f pconsc4_env.yml
+`conda env create -f pconsc4_env.yml`
 
-conda activate pconsc4_env`
+`conda activate pconsc4_env`
 
 (The pconsc4_env.yml file specifies all dependencies required for Pconsc4-based contact map generation)
 
