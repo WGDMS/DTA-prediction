@@ -1,7 +1,11 @@
-# HFGNN-DTA (Hierarchical Functional-Group GNN for Drug Target Affinity Prediction)
-**Integrating Functional-Group Context into Graph Neural Networks for Drug-Target Affinity Prediction**
+# HFGNN-DTA (Hierarchical Functional-Group GNN for Drug-Target Affinity Prediction)
 
-### Data Organization
+This repository contains the implementation of the paper:
+**HFGNN-DTA: Integrating Functional-Group Context into Graph Neural Networks for Drug-Target Affinity Prediction**
+
+## Data Organization
+
+The preprocessed Davis and KIBA datasets are available in the `data` directory.
 
 All preprocessed data are available in the *'data'* folder for the Davis and KIBA datasets.
 
