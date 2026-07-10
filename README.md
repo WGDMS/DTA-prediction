@@ -23,19 +23,17 @@ Protein position-specific scoring matrix (PSSM) features and residue contact map
 `run_pconsc4.py`
 Run the preprocessing scripts separately for the Davis and KIBA datasets.
 
-Create and activate the Conda environment required for PconsC4:
-
-`conda env create -f pconsc4_env.yml`
-
-`conda activate pconsc4_env`
-
-(The pconsc4_env.yml file specifies all dependencies required for PconsC4-based contact map generation)
-
-```bash
+*PconsC4 Environment*
+Create the Conda environment required for PconsC4-based contact-map generation:
+conda env create -f pconsc4_env.yml
+Activate the environment:
+conda activate pconsc4_env
+The pconsc4_env.yml file specifies the dependencies required to run PconsC4.
+Generate PSSM Features
 python run_pssm.py
-
-```bash
+Generate Protein Contact Maps
 python run_pconsc4.py
+
  
 ### Train and test the model
 ```bash
