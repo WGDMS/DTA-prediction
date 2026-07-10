@@ -28,7 +28,8 @@ Run the preprocessing scripts separately for the Davis and KIBA datasets.
 Create the Conda environment required for PconsC4-based contact-map generation:
 `conda env create -f pconsc4_env.yml`
 Activate the environment:
-`conda activate pconsc4_env`
+`conda activate pconsc4_env`.
+
 The `pconsc4_env.yml` file specifies the dependencies required to run PconsC4.
 
 **Generate PSSM Features**
