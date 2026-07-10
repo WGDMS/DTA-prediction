@@ -169,7 +169,7 @@ def get_fg_feature(fg_prop):
         [fg_prop['IsRing']]
     )
 
-#generate moelcular graph
+#generate molecular graph
 
 def mol_to_graphs(key, dataset):
     
@@ -477,8 +477,7 @@ def create_dataset_for_test(dataset, split):
                                
     return test_dataset
 
-   
-                               
+                     
 
 def create_dataset(dataset, split):
   
