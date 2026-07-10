@@ -16,10 +16,9 @@ Test: **test_SX.csv**
 
 This structure ensures easy access to all datasets for reproducing experiments across standard and cold-start scenarios.
 
-### Data Preprocessing
+## Data Preprocessing
 
-First, generate PSSM features and contact map files of proteins using run_pssm.py and run_pconsc4.py files for each dataset.
-
+First, generate PSSM features and contact map files of proteins using `run_pssm.py` and `run_pconsc4.py` files for each dataset.
 
 Create and activate the Conda environment required for PconsC4:
 
