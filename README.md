@@ -49,6 +49,6 @@ The `pconsc4_env.yml` file specifies the dependencies required to run PconsC4.
 
 x - dataset selection [0- Davis, 1- KIBA]
 
-y - number of training epochs (as mentioned in the supporting document)
+y - maximum number of training epochs specified in the Supporting Document
 
 z - data  split strategy (S1, S2, S3, S4)
