@@ -7,7 +7,7 @@ This repository contains the implementation of the paper:
 
 The preprocessed Davis and KIBA datasets are available in the `data` directory.
 
-Split datasets for all four strategies *(S1 - Standard split, S2 - Cold-drug split, S3 - Cold-target split, S4 - Cold-drug-target split)* are provided in the 'data/{dataset}/split_data' folder, where {dataset} is either davis or kiba.
+Split datasets for all four strategies *(S1 - Standard split, S2 - Cold-drug split, S3 - Cold-target split, S4 - Cold-drug-target split)* are provided in the `data/{dataset}/split_data` folder, where {dataset} is either davis or kiba.
 
 Training: **train_SX.csv**/
 Validation: **val_SX.csv**/
