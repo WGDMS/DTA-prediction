@@ -18,7 +18,10 @@ This structure ensures easy access to all datasets for reproducing experiments a
 
 ## Data Preprocessing
 
-First, generate PSSM features and contact map files of proteins using `run_pssm.py` and `run_pconsc4.py` files for each dataset.
+Protein position-specific scoring matrix (PSSM) features and residue contact maps can be generated using:
+`run_pssm.py`
+`run_pconsc4.py`
+Run the preprocessing scripts separately for the Davis and KIBA datasets.
 
 Create and activate the Conda environment required for PconsC4:
 
