@@ -14,7 +14,7 @@ dependencies:
   - matplotlib
   - networkx
   - biopython
-  - rdkit=2024.09.4
+  - rdkit=2022.09.5
 
   - pytorch=2.6.0
   - torchvision=0.21.0
