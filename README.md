@@ -26,19 +26,19 @@ Create and activate the Conda environment required for PconsC4:
 `conda activate pconsc4_env`
 
 (The pconsc4_env.yml file specifies all dependencies required for PconsC4-based contact map generation)
-
+```bash
 `python run_pssm.py`
-
+```bash
 `python run_pconsc4.py`
  
 ### Train and test the model
-
+```bash
 `python training.py x y z`
-
+```bash
 `python testing.py x z`
 
 x - dataset selection [0- Davis, 1- KIBA]
 
-y - number of training epochs (use the values reported in the paper)
+y - number of training epochs (as mentioned in the supporting document)
 
 z - data  split strategy (S1, S2, S3, S4)
