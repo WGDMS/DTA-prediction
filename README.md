@@ -31,17 +31,20 @@ Activate the environment:
 The `pconsc4_env.yml` file specifies the dependencies required to run PconsC4.
 
 **Generate PSSM Features**
+
 `python run_pssm.py`
+
 **Generate Protein Contact Maps**
+
 `python run_pconsc4.py`
 
  
 ## Train and test the model
-```bash
-python training.py x y z
 
-```bash
-python testing.py x z
+`python training.py x y z`
+
+
+`python testing.py x z`
 
 x - dataset selection [0- Davis, 1- KIBA]
 y - number of training epochs (as mentioned in the supporting document)
