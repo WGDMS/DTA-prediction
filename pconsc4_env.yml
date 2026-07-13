@@ -1,6 +1,7 @@
 name: pconsc4_env
 channels:
   - defaults
+  
 dependencies:
   - gcc_linux-64=7.5.0
   - gxx_linux-64=7.5.0
