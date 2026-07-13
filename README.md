@@ -43,13 +43,10 @@ The `pconsc4_env.yml` file specifies the dependencies required to run PconsC4.
  
 ## Train and test the model
 
-`python training.py x y z`
+`python training.py x y`
 
-
-`python testing.py x z`
+`python testing.py x y`
 
 x - dataset selection [0- Davis, 1- KIBA]
 
-y - maximum number of training epochs specified in the Supporting Document
-
-z - data  split strategy (S1, S2, S3, S4)
+y - data  split strategy (S1, S2, S3, S4)
