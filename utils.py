@@ -9,7 +9,7 @@ import subprocess
 from math import sqrt
 from sklearn.metrics import average_precision_score
 from scipy import stats
-
+import time
 
 class DTADataset(InMemoryDataset):
     def __init__(self, root='/tmp', dataset='davis',y=None, transform=None,
@@ -41,7 +41,7 @@ class DTADataset(InMemoryDataset):
 
     def process(self, drug_key, target_key, y, mol_graph, target_graph):
         #the three lists must be the same length
-        assert (len(drug_key) == len(target_key) and len(drug_key) == len(y)), 
+        assert (len(drug_key) == len(target_key) and len(drug_key) == len(y))
         data_list_mol = []
         data_list_pro = []
         data_list_fun = []
@@ -121,7 +121,8 @@ def train(model, device, train_loader, optimizer, epoch):
     print('Training on {} samples...'.format(len(train_loader.dataset)))
     model.train()
     LOG_INTERVAL = 10
-    TRAIN_BATCH_SIZE = 512
+    
+    current_batch_size = data_mol.num_graphs
     loss_fn = torch.nn.MSELoss()
     train_loss=0.0
     for batch_idx, data in enumerate(train_loader):
@@ -129,6 +130,7 @@ def train(model, device, train_loader, optimizer, epoch):
         data_pro = data[1].to(device)
         data_fun = data[2].to(device)
         optimizer.zero_grad()
+        current_batch_size = data_mol.num_graphs
         output = model(data_mol, data_pro, data_fun)
         loss = loss_fn(output, data_mol.y.view(-1, 1).float().to(device))
         loss.backward()
@@ -136,7 +138,7 @@ def train(model, device, train_loader, optimizer, epoch):
         train_loss+=loss.item()
         if batch_idx % LOG_INTERVAL == 0:
             print('Train epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(epoch,
-                                                                           batch_idx * TRAIN_BATCH_SIZE,
+                                                                           batch_idx * current_batch_size,
                                                                            len(train_loader.dataset),
                                                                            100. * batch_idx / len(train_loader),
                                                                           loss.item()))
@@ -221,12 +223,10 @@ def squared_error_zero(y_obs, y_pred):
 
     return 1 - (upp / float(down))
 
-
-def get_rm2(ys_orig, ys_line):
-    r2 = r_squared_error(ys_orig, ys_line)
-    r02 = squared_error_zero(ys_orig, ys_line)
-
-    return r2 * (1 - np.sqrt(np.absolute((r2 * r2) - (r02 * r02))))
+def get_rm2(ys_orig, ys_pred):
+    r2 = r_squared_error(ys_orig, ys_pred)
+    r02 = squared_error_zero(ys_orig, ys_pred)
+    return r2 * (1.0 - np.sqrt(np.abs(r2 - r02)))
 
 
 def get_rmse(y, f):

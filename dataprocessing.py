@@ -19,7 +19,7 @@ def dic_normalize(dic):
     interval = float(max_value) - float(min_value)
     for key in dic.keys():
         dic[key] = (dic[key] - min_value) / interval
-    dic['X'] = (max_value + min_value) / 2.0
+    dic['X'] = 0.5
     return dic
 
 
@@ -169,12 +169,12 @@ def get_fg_feature(fg_prop):
         [fg_prop['IsRing']]
     )
 
-#generate molecular graph
+#generate moelcular graph
 
 def mol_to_graphs(key, dataset):
     
     dataset_path = 'data/' + dataset + '/'
-    df = pd.read_csv(dataset_path+ "davis_smiles.csv")
+    df = pd.read_csv(dataset_path + f"{dataset}_smiles.csv")
     smile = df.loc[df["Drug_ID"] == key, "SMILES"].values[0]
     mol = Chem.MolFromSmiles(smile)
        
@@ -289,25 +289,32 @@ def mol_to_graphs(key, dataset):
 
 def PSSM_calculation(aln_file, pro_seq):
     pfm_mat = np.zeros((len(pro_res_table), len(pro_seq)))
-    with open(aln_file, 'r') as f:
-        line_count = len(f.readlines())
-        for line in f.readlines():
-            if len(line) != len(pro_seq):
-                print('error', len(line), len(pro_seq))
-                continue
-            count = 0
-            for res in line:
-                if res not in pro_res_table:
-                    count += 1
-                    continue
-                pfm_mat[pro_res_table.index(res), count] += 1
-                count += 1
-   
+
+    with open(aln_file, "r") as f:
+        lines = [line.strip() for line in f if line.strip()]
+
+    valid_count = 0
+
+    for line in lines:
+        if len(line) != len(pro_seq):
+            continue
+
+        valid_count += 1
+
+        for pos, res in enumerate(line):
+            if res in pro_res_table:
+                pfm_mat[pro_res_table.index(res), pos] += 1
+
+    if valid_count == 0:
+        raise ValueError(f"No valid alignment rows found in {aln_file}")
+
     pseudocount = 0.8
-    ppm_mat = (pfm_mat + pseudocount / 4) / (float(line_count) + pseudocount)
-    pssm_mat = ppm_mat
-    
-    return pssm_mat
+    ppm_mat = (pfm_mat + pseudocount / len(pro_res_table)) / (
+        valid_count + pseudocount
+    )
+
+    return ppm_mat
+
 
 # target feature for target graph
 
@@ -477,7 +484,8 @@ def create_dataset_for_test(dataset, split):
                                
     return test_dataset
 
-                     
+   
+                               
 
 def create_dataset(dataset, split):
   

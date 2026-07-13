@@ -4,6 +4,7 @@ import numpy as np
 import json
 from collections import OrderedDict
 from Bio import SeqIO
+import pandas as pd
 
 # Modified from the DGraphDTA repository:
 # Repository: https://github.com/595693085/DGraphDTA
@@ -23,7 +24,7 @@ def HHblitsMSA(bin_path, db_path, input_dir, output_dir):
     print(f"Files in database directory: {os.listdir(db_path)}")
     #database file path
     #https://wwwuser.gwdguser.de/~compbiol/uniclust/2023_02/
-    db_path = '/home/samankweda/Documents/UniRef30_2023_02/UniRef30_2023_02'  # hhblits dataset for msa
+    db_path = '/home/sw/Documents/UniRef30_2023_02/UniRef30_2023_02'  # hhblits dataset for msa
     
     for fas_file in os.listdir(input_dir):
         process_file = os.path.join(input_dir, fas_file)
@@ -97,14 +98,14 @@ def alnFilePrepare():
     import json
     from collections import OrderedDict
     print('aln file prepare ...')
-    #datasets = ['davis', 'kiba']
-    datasets = ['davis']
+    datasets = ['davis', 'kiba']
+
     for dataset in datasets:
         seq_dir = os.path.join('data/', dataset, 'seq')
         msa_dir = os.path.join('data/', dataset, 'msa')
         filter_dir = os.path.join('data/', dataset, 'hhfilter')
         reformat_dir = os.path.join('data/', dataset, 'reformat')
-        aln_dir = os.path.join('data, dataset, 'aln')
+        aln_dir = os.path.join("data", dataset, "aln")
         # pconsc4_dir = os.path.join('data', dataset, 'pconsc4')
         protein_path = os.path.join('data/', dataset)
      #   proteins = json.load(open(os.path.join(protein_path, 'proteins.txt')), object_pairs_hook=OrderedDict)
@@ -121,12 +122,12 @@ def alnFilePrepare():
             os.makedirs(aln_dir)
         
         dataset_path = 'data/' + dataset + '/'
-        dfT = pd.read_csv(dataset_path+ "davis_kinases.csv")
+        dfT = pd.read_csv(dataset_path + f"{dataset}_kinases.csv")
         proteins_dict = dict(zip(dfT["Protein_ID"], dfT["FASTA"]))
     
         
         HHblits_bin_path = 'hhsuite/build/src/hhblits'  # HHblits bin path
-        HHblits_db_path = '/home/samankweda/Documents/UniRef30_2023_02'  # hhblits dataset for msa
+        HHblits_db_path = '/home/sw/Documents/UniRef30_2023_02'  # hhblits dataset for msa
        
         HHfilter_bin_path = 'hhsuite/build/src/hhfilter'  # HHfilter bin path
         reformat_bin_path = 'hhsuite/scripts/reformat.pl'  # reformat bin path

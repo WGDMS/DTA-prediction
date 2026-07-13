@@ -12,9 +12,10 @@ dependencies:
   - scipy=1.15.3
   - scikit-learn=1.6.1
   - matplotlib
+  - seaborn
   - networkx
   - biopython
-  - rdkit=2022.09.5
+  - rdkit=2024.09.4
 
   - pytorch=2.6.0
   - torchvision=0.21.0

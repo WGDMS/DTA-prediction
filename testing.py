@@ -9,6 +9,7 @@ from model import GraphModel
 from dataprocessing import create_dataset_for_test
 import matplotlib.pyplot as plt
 import seaborn as sns
+from config import get_config, checkpoint_path, result_path
 
 def plot_true_vs_predicted(true_values, predicted_values, dataset, seed=None):
     """
@@ -84,12 +85,19 @@ def predicting(model, device, loader):
 
 
 
-dataset = ['davis', 'kiba'][int(sys.argv[1])]
-#gnn_type = ["GIN", "GAT", "GCN", "GAT_GCN"][int(sys.argv[2])]
-split = sys.argv[2]  # This will take 'S1', 'S2', 'S3', or 'S4'
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+dataset_arg = sys.argv[1]
+split_arg = sys.argv[2]
 
-TEST_BATCH_SIZE = 512
+cfg = get_config(dataset_arg, split_arg)
+
+dataset = cfg["dataset"]
+split = cfg["split"]
+TEST_BATCH_SIZE = cfg["test_batch_size"]
+seeds = cfg["seeds"]
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print("Using device:", device)
+
 models_dir = 'models'
 plots_dir = 'plots'
 os.makedirs(plots_dir, exist_ok=True)
@@ -99,11 +107,11 @@ test_loader = torch.utils.data.DataLoader(test_data, batch_size=TEST_BATCH_SIZE,
 
 all_metrics = []
 
-for seed in range(5):
+for seed in seeds:
     print(f"Evaluating model for seed {seed}...")
     
-    model = GraphModel).to(device)
-    model_file_name = f'{models_dir}/model_{dataset}_seed{seed}.model'
+    model = GraphModel().to(device)
+    model_file_name = checkpoint_path(dataset, split, seed)
     model.load_state_dict(torch.load(model_file_name))
     model.to(device)
     model.eval()
@@ -121,20 +129,6 @@ for seed in range(5):
     print(model_file_name)
     all_metrics.append([mse, rmse, pearson, spearman, cindex, rm2])
 
-    # === Scatter Plot ===
-   # plt1 = plot_true_vs_predicted(G, P, dataset, seed)
-   # scatter_file = f'{plots_dir}/scatter_{dataset}_seed{seed}.png'
-   # plt1.savefig(scatter_file, dpi=300, bbox_inches='tight')
-   # plt1.close()
-   # print(f"Scatter plot saved as {scatter_file}")
-
-    # === KDE Plot ===
-   # plt2 = plot_kde_affinity(G, P, dataset, seed)
-   # kde_file = f'{plots_dir}/kde_{dataset}_seed{seed}.png'
-   # plt2.savefig(kde_file, dpi=300, bbox_inches='tight')
-  #  plt2.close()
-  #  print(f"KDE plot saved as {kde_file}")
-
 
 # Compute overall stats
 all_metrics = np.array(all_metrics)
@@ -148,7 +142,7 @@ for i, name in enumerate(metric_names):
 
 # Save results
 os.makedirs('results', exist_ok=True)
-result_file = f'results/result_{dataset}_5seeds.txt'
+result_file = result_path(dataset, split)
 with open(result_file, 'w') as f:
     f.write("Final Results Across 5 Runs:\n")
     for i, name in enumerate(metric_names):

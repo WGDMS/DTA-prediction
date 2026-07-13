@@ -30,33 +30,35 @@ def pconsc4Prediction():
 
     # Use the function from the package
     model = get_pconsc4()
+    datasets = ["davis", "kiba"]
+    for dataset in datasets:
+        base_dir = os.path.join("data", dataset)
+        aln_dir = os.path.join(base_dir, "hhfilter")
+        output_dir = os.path.join(base_dir, "pconsc4")
 
-    base_dir = os.path.join('data', 'davis')
-    aln_dir = os.path.join(base_dir, 'hhfilter')
-    output_dir = os.path.join(base_dir, 'pconsc4')
-    os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(output_dir, exist_ok=True)
 
-    file_list = os.listdir(aln_dir)
-    random.shuffle(file_list)
+        file_list = os.listdir(aln_dir)
+        random.shuffle(file_list)
 
-    for file in file_list:
-        if not file.endswith(".a3m"):
-            continue
+        for file in file_list:
+            if not file.endswith(".a3m"):
+                continue
 
-        input_file = os.path.join(aln_dir, file)
-        output_file = os.path.join(output_dir, file.replace('.a3m', '.npy'))
+            input_file = os.path.join(aln_dir, file)
+            output_file = os.path.join(output_dir, file.replace('.a3m', '.npy'))
 
-        if os.path.exists(output_file):
-            print(output_file, 'exists. Skipping.')
-            continue
+            if os.path.exists(output_file):
+                print(output_file, 'exists. Skipping.')
+                continue
 
-        try:
-            print('Processing', input_file)
-            pred = predict(model, input_file)
-            np.save(output_file, pred['cmap'])
-            print(output_file, 'saved.')
-        except Exception as e:
-            print(output_file, 'error:', e)
+            try:
+                print('Processing', input_file)
+                pred = predict(model, input_file)
+                np.save(output_file, pred['cmap'])
+                print(output_file, 'saved.')
+            except Exception as e:
+                print(output_file, 'error:', e)
             
 
 

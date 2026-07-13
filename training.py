@@ -5,31 +5,37 @@ import torch.nn as nn
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-from torch_geometric.data import DataLoader
 
 from model import GraphModel
 from utils import *
 from dataprocessing import create_dataset
+from config import get_config, checkpoint_path
 
-# Dataset
-dataset = ['davis', 'kiba'][int(sys.argv[1])]
-TRAIN_BATCH_SIZE = 512
-TEST_BATCH_SIZE = 512
-LR = 0.001
-NUM_EPOCHS = int(sys.argv[2])
-split = sys.argv[3]  # This will take 'S1', 'S2', 'S3', or 'S4'
-PATIENCE = 500  # Early stopping patience
 
+dataset_arg = sys.argv[1]
+split_arg = sys.argv[2]
+
+cfg = get_config(dataset_arg, split_arg)
+
+dataset = cfg["dataset"]
+split = cfg["split"]
+LR = cfg["lr"]
+TRAIN_BATCH_SIZE = cfg["batch_size"]
+TEST_BATCH_SIZE = cfg["test_batch_size"]
+NUM_EPOCHS = cfg["epochs"]
+PATIENCE = cfg["patience"]
+seeds = cfg["seeds"]
 
 print(f"Dataset: {dataset}")
-print(f"Number of epochs: {num_epochs}")
 print(f"Split strategy: {split}")
-
-#gnn_type = ["GIN", "GAT", "GCN", "GAT_GCN"][int(sys.argv[3])]
-#print(f"Using GNN type: {gnn_type}")
+print(f"Number of epochs: {NUM_EPOCHS}")
+print(f"Learning rate: {LR}")
+print(f"Batch size: {TRAIN_BATCH_SIZE}")
+print(f"Early stopping patience: {PATIENCE}")
 
 models_dir = 'models'
 results_dir = 'results'
+
 if not os.path.exists(models_dir):
     os.makedirs(models_dir)
 if not os.path.exists(results_dir):
@@ -42,7 +48,7 @@ print(f"Training with dataset {dataset}")
 torch.cuda.empty_cache()
 train_data, valid_data = create_dataset(dataset, split)
 
-for seed in range(5):
+for seed in seeds:
     print(f"Running training for seed {seed}...")
     
     # Set random seed for reproducibility
@@ -55,7 +61,7 @@ for seed in range(5):
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
     #optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-5)
 
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 20, eta_min=5e-4)
+   # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 20, eta_min=5e-4)
     
     train_loader = torch.utils.data.DataLoader(train_data, batch_size=TRAIN_BATCH_SIZE, shuffle=True, collate_fn=collate)
     valid_loader = torch.utils.data.DataLoader(valid_data, batch_size=TEST_BATCH_SIZE, shuffle=False, collate_fn=collate)
@@ -77,7 +83,7 @@ for seed in range(5):
         if val_loss < best_mse:
             best_mse = val_loss
             patience_counter = 0
-            model_filename = f'{models_dir}/model_{dataset}_seed{seed}.model'
+            model_filename = checkpoint_path(dataset, split, seed)
             torch.save(model.state_dict(), model_filename)
             print(f"Model saved for seed {seed}, epoch {epoch+1}")
         else:
@@ -87,7 +93,7 @@ for seed in range(5):
             print(f"Early stopping at epoch {epoch+1} for seed {seed}")
             break
 
-        scheduler.step()
+       # scheduler.step()
     plt.figure(figsize=(10, 6))
     plt.plot(train_losses, label=f'Train Loss')
     plt.plot(val_losses, label=f'Val Loss', linestyle='--')
